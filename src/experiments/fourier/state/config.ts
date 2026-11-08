@@ -1,4 +1,5 @@
-export type SignalId = 'square' | 'sawtooth' | 'triangle'
+import type { SignalId } from '../../../core/types'
+export type { SignalId } from '../../../core/types'
 export interface FourierConfig {
   signalId: SignalId
   maxHarmonic: number

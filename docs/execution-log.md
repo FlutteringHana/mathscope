@@ -23,3 +23,26 @@ Decisions: native dialog drawers provide modal focus management and Escape suppo
 Verification: Vitest 1/1 passed; lint and build passed without warnings. Browser checks passed for signal/N changes, all tab transitions, harmonic visibility, reset, desktop layout, mobile drawers and focus entry. Browser window resizing has a minimum viewport of approximately 500 CSS pixels; narrower device emulation is deferred to M5. Review corrected duplicate slider IDs when drawers coexist with hidden desktop controls, and dialog cleanup behavior under React StrictMode.
 
 Next: pure mathematical models, coefficients, partial sums, midpoint sampling and error metrics with mathematical tests (M2).
+
+## M2 — Fourier Computation Engine
+
+Status: verified. All tasks depend on M1 and the approved mathematical contract.
+
+| Task | Objective / scope | Dependencies | Acceptance and verification | Status |
+| --- | --- | --- | --- | --- |
+| M2-01 | Vitest infrastructure | M1 | Node environment, TS discovery and npm scripts; completed early in M1 | Done |
+| M2-02 | Signal, coefficient, sample and metric types | M2-01 | Typed pure API; production type checking | Done |
+| M2-03 | Three periodic signal models | M2-02 | Symmetry, bounds, periodicity, endpoint and near-jump tests | Done |
+| M2-04 | Analytical coefficients | M2-03 | Exact values, zero terms and independent midpoint integration tests | Done |
+| M2-05 | Partial sums including DC | M2-04 | Known sums, N=0, highest-index convention and invalid-index tests | Done |
+| M2-06 | Midpoint sampling | M2-05 | M=2048, coordinates, endpoint avoidance and segmentation metadata tests | Done |
+| M2-07 | Sampled error metrics | M2-06 | Known RMSE/max values, scaled accumulation and invalid-input tests | Done |
+| M2-08 | Mathematical contract tests | M2-03–07 | 54 tests passed across 3 suites; lint/build clean | Done |
+
+Files: `src/core/types.ts`, `validation.ts`, `signals/signals.ts`, `fourier/{series,sampling,errors}.ts`, `tests/{fourier,architecture}.test.ts`, and experiment config's core type import. No dependencies added.
+
+Decisions: the core accepts N=0 for DC-only mathematical evaluation and N≤50 for the MVP resource bound; UI remains 1–50. Sampling accepts 1–65536 points and intervals up to two periods for later Gibbs views. Canonical metrics use exactly 2048 midpoints over (−π,π). Coordinates beyond one million periods are rejected explicitly because phase reduction loses precision at large magnitudes. Near-jump values are not flattened using a broad epsilon. Scaled RMSE avoids overflow when squaring otherwise finite errors. Nonfinite results throw rather than silently producing NaN.
+
+Verification: `npm test` 54/54; `npm run lint` and `npm run build` passed without warnings. Independent numerical integration checks harmonics 1, 2, 3, 8, 49 and 50 for every signal. Architecture test checks core's local imports and absence of DOM/React identifiers. Review confirmed the triangle is even and continuous and only square/sawtooth expose jump locations.
+
+Next: renderer decision, adapters, combined plot, harmonic inspection and maximum-N interaction checks (M3).
