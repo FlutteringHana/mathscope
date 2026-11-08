@@ -1,0 +1,13 @@
+.controls { display: flex; flex-direction: column; gap: var(--space-6); }
+.eyebrow { font: .65rem var(--font-mono); letter-spacing: .12em; color: var(--muted); }
+.controls h2 { margin: .5rem 0 0; }
+.field { display: flex; flex-direction: column; gap: var(--space-3); }
+.field label { font-size: .8rem; }
+.field output { display: block; color: var(--cyan); font-size: 1.35rem; margin-top: .5rem; }
+.range { display: flex; justify-content: space-between; color: var(--muted); font: .75rem var(--font-mono); }
+.hint { font-size: .75rem; margin: 0; }
+.controls fieldset { padding: var(--space-4) 0 0; margin: 0; border: 0; border-top: var(--panel-border); }
+.controls legend { font: .65rem var(--font-mono); letter-spacing: .1em; padding-right: 12px; color: var(--muted); }
+.toggle { display: flex; align-items: center; gap: var(--space-3); min-height: 42px; font-size: .8rem; }
+.conventions { border-top: var(--panel-border); padding-top: var(--space-6); }
+.conventions p { font-size: .8rem; line-height: 2; margin: .5rem 0 0; }

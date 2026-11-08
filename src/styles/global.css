@@ -1,0 +1,23 @@
+@import './tokens.css';
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--background); color: var(--text); font: 14px/1.6 var(--font-sans); }
+button, input, select { font: inherit; }
+button, select { border: var(--panel-border); border-radius: 5px; background: var(--elevated); color: var(--text); padding: .55rem .8rem; }
+button { cursor: pointer; }
+button:hover { border-color: var(--muted); }
+button:disabled { cursor: default; opacity: .55; }
+input { accent-color: var(--cyan); }
+input[type='range'] { width: 100%; cursor: pointer; }
+input[type='checkbox'] { width: 18px; height: 18px; }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+a { color: var(--cyan); }
+h1, h2, h3, p { margin-top: 0; }
+h1 { font-size: clamp(1.6rem, 3vw, 2rem); font-weight: 600; letter-spacing: -.04em; margin-bottom: .35rem; }
+h2 { font-size: 1rem; font-weight: 600; }
+h3 { font-size: .9rem; }
+p { color: var(--muted); }
+small { font-size: var(--text-small); }
+code, output { font-family: var(--font-mono); }
+summary { cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
