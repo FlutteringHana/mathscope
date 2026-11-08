@@ -46,3 +46,25 @@ Decisions: the core accepts N=0 for DC-only mathematical evaluation and N≤50 f
 Verification: `npm test` 54/54; `npm run lint` and `npm run build` passed without warnings. Independent numerical integration checks harmonics 1, 2, 3, 8, 49 and 50 for every signal. Architecture test checks core's local imports and absence of DOM/React identifiers. Review confirmed the triangle is even and continuous and only square/sawtooth expose jump locations.
 
 Next: renderer decision, adapters, combined plot, harmonic inspection and maximum-N interaction checks (M3).
+
+## M3 — Interactive Visualization
+
+Status: verified. Dependencies: M2.
+
+| Task | Objective / scope | Dependencies | Acceptance and verification | Status |
+| --- | --- | --- | --- | --- |
+| M3-01 | Evaluate Plotly, SVG and Canvas | M2 | Comparison and choice in `renderer-decision.md` | Done |
+| M3-02 | Data-only rendering adapter | M3-01 | Adapter tests; no Fourier calculations in visualization | Done |
+| M3-03 | Combined plot, axes, grid, legend, zoom/pan | M3-02 | Browser path changes on zoom/pan and restoration on reset | Done |
+| M3-04 | Split original curves at jumps | M3-02 | Tests assert no segment crosses model jump locations | Done |
+| M3-05 | Connect controls to computation | M3-03 | Browser verifies every signal at N=50; visibility checks | Done |
+| M3-06 | Inspect all nonzero harmonic terms | M3-05 | 25 square/triangle and 50 sawtooth selectable terms at N=50 | Done |
+| M3-07 | Maximum-N interaction validation | M3-06 | All signals remain interactive; timings below | Done |
+
+Files: `src/visualization/{charts,adapters}/`, `src/experiments/fourier/hooks/useFourier.ts`, `components/{Harmonics,Workspace}.tsx` and styles; `tests/{visualization,shell}.test.*`, `docs/renderer-decision.md`, `package.json`. No dependency added. Lint now uses `--deny-warnings` to enforce the requested zero-warning gate.
+
+Decisions: native SVG behind a generic series component; model-provided jump metadata; one individually selected harmonic chart to avoid overcrowding; keyboard zoom/pan controls and pointer drag; horizontal plot scrolling on narrow screens. Fourier computation remains entirely in core. See renderer decision for compared alternatives and primary references.
+
+Verification: 56/56 Vitest tests; lint/build passed without warnings after removing unnecessary harmonic memoization flagged by the React Compiler lint rule. Browser checks verified all signals, segment counts, N=50, last selectable harmonic, zoom/pan/reset. The dev-browser sequence of setting N=50, waiting two frames, asserting rendered paths, selecting the final harmonic and waiting two more frames took 203 ms (square), 236 ms (sawtooth), 199 ms (triangle). These are whole scripted interaction sequences, not isolated computation benchmarks or device-independent latency guarantees. Production JS at this checkpoint: 235.85 kB (74.42 kB gzip).
+
+Next: KaTeX, theory, coefficients, reproducible sampled metrics and Gibbs views (M4).

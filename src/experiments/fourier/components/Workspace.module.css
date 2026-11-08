@@ -13,5 +13,9 @@
 .placeholder small { color: var(--amber); }
 .placeholderMark { color: var(--cyan); font-size: 3rem; }
 .note { padding: 0 var(--space-6) var(--space-4); font-size: .8rem; }
+.subtle { margin-left: 1rem; color: var(--muted); font-size: .75rem; font-weight: 400; }
+.harmonicList { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0 var(--space-6) var(--space-4); }
+.harmonicList button { font: .7rem var(--font-mono); }
+.harmonicList button[aria-pressed='true'] { color: var(--violet); border-color: var(--violet); }
 .footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; color: var(--muted); font: .65rem var(--font-mono); margin-top: var(--space-8); }
 @media (max-width: 600px) { .badge { display: none; } .placeholder { padding: var(--space-4); } }
