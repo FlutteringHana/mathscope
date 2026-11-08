@@ -1,0 +1,2 @@
+.formula { overflow-x: auto; overflow-y: hidden; padding: var(--space-3) var(--space-4); margin-block: var(--space-4); border: var(--panel-border); border-radius: 5px; background: var(--background); font-size: .95rem; }
+.formula :global(.katex-display) { margin: .5rem 0; text-align: left; }

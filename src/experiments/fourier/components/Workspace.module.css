@@ -17,5 +17,22 @@
 .harmonicList { display: flex; flex-wrap: wrap; gap: .4rem; padding: 0 var(--space-6) var(--space-4); }
 .harmonicList button { font: .7rem var(--font-mono); }
 .harmonicList button[aria-pressed='true'] { color: var(--violet); border-color: var(--violet); }
+.prose { padding: var(--space-6); }
+.prose p { font-size: .85rem; max-width: 85ch; }
+.prose p:last-child { margin-bottom: 0; }
+.sectionNumber { display: block; margin-bottom: .75rem; color: var(--cyan); font: .65rem var(--font-mono); letter-spacing: .1em; }
+.reading { max-width: 1100px; }
+.metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4); margin-bottom: var(--space-6); }
+.metric { display: flex; flex-direction: column; background: var(--surface); border: var(--panel-border); border-radius: var(--radius); padding: var(--space-6); }
+.metric > span { font-size: .8rem; }
+.metric output { font-size: clamp(1.4rem, 2.5vw, 2rem); color: var(--cyan); margin-block: .5rem; }
+.metric small { color: var(--muted); font-size: .7rem; }
+.tableScroll { overflow: auto; max-height: 400px; }
+.tableScroll table { width: 100%; border-collapse: collapse; font: .8rem var(--font-mono); white-space: nowrap; }
+.tableScroll th, .tableScroll td { padding: .65rem var(--space-6); text-align: right; border-bottom: var(--panel-border); }
+.tableScroll th:first-child { text-align: left; }
+.tableScroll thead { position: sticky; top: 0; background: var(--elevated); }
+.tableScroll caption { white-space: normal; text-align: left; padding: var(--space-4) var(--space-6); font: .75rem/1.6 var(--font-sans); color: var(--muted); }
+@media (max-width: 600px) { .metrics { grid-template-columns: 1fr; } .prose { padding: var(--space-4); } }
 .footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; color: var(--muted); font: .65rem var(--font-mono); margin-top: var(--space-8); }
 @media (max-width: 600px) { .badge { display: none; } .placeholder { padding: var(--space-4); } }

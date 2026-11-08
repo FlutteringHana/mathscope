@@ -68,3 +68,24 @@ Decisions: native SVG behind a generic series component; model-provided jump met
 Verification: 56/56 Vitest tests; lint/build passed without warnings after removing unnecessary harmonic memoization flagged by the React Compiler lint rule. Browser checks verified all signals, segment counts, N=50, last selectable harmonic, zoom/pan/reset. The dev-browser sequence of setting N=50, waiting two frames, asserting rendered paths, selecting the final harmonic and waiting two more frames took 203 ms (square), 236 ms (sawtooth), 199 ms (triangle). These are whole scripted interaction sequences, not isolated computation benchmarks or device-independent latency guarantees. Production JS at this checkpoint: 235.85 kB (74.42 kB gzip).
 
 Next: KaTeX, theory, coefficients, reproducible sampled metrics and Gibbs views (M4).
+
+## M4 — Mathematical Analysis
+
+Status: verified. Dependencies: M3.
+
+| Task | Objective / scope | Dependencies | Acceptance and verification | Status |
+| --- | --- | --- | --- | --- |
+| M4-01 | KaTeX formulas | M3 | Every TeX expression parsed with errors enabled; MathML present | Done |
+| M4-02 | Signal theory and conventions | M4-01 | All three definitions, symmetry, coefficients and convergence reviewed against contract | Done |
+| M4-03 | Complete analytical coefficient table | M2, M4-01 | DC plus all 1–N rows, including zeros; presentation tests | Done |
+| M4-04 | Reproducible error analysis | M2, M4-01 | Canonical M=2048, sampled labels, grid/rounding disclosures | Done |
+| M4-05 | Local Gibbs view | M3, M4-02 | Square around 0, sawtooth around π, no triangle jump view; overshoot tests | Done |
+| M4-06 | Numerical presentation | M4-03–05 | Browser metrics, formula rendering, table counts and conditional content checks | Done |
+
+Files: `src/components/ui/Formula.*`, `src/experiments/fourier/config/theory.ts`, `components/{Theory,Analysis,Workspace}.*`, `src/core/signals/signals.ts`, `tests/analysis.test.tsx`, `package.json`, `package-lock.json`. Added KaTeX and development-only `@types/katex` through npm.
+
+Decisions: trusted project-owned formula strings rendered with KaTeX's `trust: false`, HTML plus MathML, and throwing parse errors. Theory/Analysis load lazily, keeping formula code/fonts off the initial experiment path. Global metrics always use the canonical grid; Gibbs uses a separately disclosed 2048-point local window of width 1.2 radians. The 8.949% theoretical limit is explicitly not a finite-N measurement.
+
+Verification: 61/61 tests passed; lint/build clean. Browser rendered all formulas without KaTeX errors, verified coefficient counts and MathML, and confirmed triangle has no Gibbs plot. N=9 RMSE / sampled maximum: square 0.200978 / 0.990235; sawtooth 0.145978 / 0.990723; triangle 0.007327 / 0.039423. Review/test correction normalized −0 to 0 in jump metadata for local windows. Production chunks remain below Vite warning thresholds.
+
+Next: production integration, accessibility/responsiveness, performance, documentation/screenshots and deployment (M5).

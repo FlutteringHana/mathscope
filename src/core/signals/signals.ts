@@ -49,7 +49,7 @@ export function discontinuities(id: SignalId, min: number, max: number): number[
   if (signal.continuous) return []
   const points: number[] = []
   for (let k = Math.ceil(min / Math.PI); k <= Math.floor(max / Math.PI); k++) {
-    if (id === 'square' || Math.abs(k % 2) === 1) points.push(k * Math.PI)
+    if (id === 'square' || Math.abs(k % 2) === 1) points.push(k === 0 ? 0 : k * Math.PI)
   }
   return points
 }
