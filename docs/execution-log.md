@@ -92,7 +92,7 @@ Next: production integration, accessibility/responsiveness, performance, documen
 
 ## M5 — Polish and Release
 
-Status: implementation and local verification complete; deployment pending.
+Status: implementation and local verification complete; public deployment blocked pending destination-specific user approval.
 
 | Task | Objective / scope | Dependencies | Acceptance and verification | Status |
 | --- | --- | --- | --- | --- |
@@ -102,7 +102,7 @@ Status: implementation and local verification complete; deployment pending.
 | M5-04 | Responsive layouts | M5-02 | Chromium emulation at 320, 390, 1024 and 1440 CSS px; no document overflow | Done |
 | M5-05 | Maximum-setting performance | M5-01 | Production updates alternate N=49/50 for each signal; measurements below | Done |
 | M5-06 | Installation, features, screenshots and limitations | M5-01–05 | README matches implementation; desktop/mobile screenshots captured from production preview | Done |
-| M5-07 | Static publication | M5-01–06 | Assigned Sites project recorded; source synchronization and verified public deployment still required | In progress |
+| M5-07 | Static publication | M5-01–06 | Assigned Sites project recorded; automatic approval review rejected external source synchronization; explicit destination/public-release approval requested | Blocked |
 
 Files: `README.md`, `docs/screenshots/*.webp`, `docs/execution-log.md`, `.openai/hosting.json`, `index.html`, `public/favicon.svg`, `package.json`/lockfile (0.1.0), `tsconfig.test.json`, `src/components/ui/{Drawer,ErrorBoundary}.tsx`, `src/app/App.*`, chart and workspace styles, `src/core/signals/signals.ts`, `tests/fourier.test.ts`. No additional dependencies.
 
@@ -113,3 +113,9 @@ Production QA: all 9 signal/N combinations passed; reset and visibility combinat
 Performance: production-browser updates alternating N=49/50, 12 iterations per signal, measured from input dispatch through two animation frames. Median / maximum: square 48 / 60 ms, sawtooth 50 / 50 ms, triangle 34 / 50 ms. These are local end-to-end observations, not cross-device guarantees. SVG remains adequate for the supported workload. Formula code is lazy-loaded separately from the initial experiment.
 
 Release limitations: browser checks use Chromium and emulated devices; physical mobile devices, Firefox/Safari and real screen readers were not separately tested. Configuration is in memory. Graph zoom magnifies fixed samples and does not resample; local Gibbs uses its own dense sampling. Future modules are not implemented.
+
+Final local gate: `npm test` (including TypeScript checks) passed 61/61 tests across 5 suites; `npm run lint` and `npm run build` passed with zero warnings/errors. Milestone commits: M1 `d8e594b`, M2 `cc2e1a0`, M3 `76983d7`, M4 `c2d26ba`, M5 release candidate `a6075d4`.
+
+Publication block: Sites project `appgprj_6af0bc3f220c819183acb42dc4542b87` was registered and persisted in `.openai/hosting.json`. The expected URL is `https://mathscope-fourier-lab.nativeabbey4.chatgpt.site`; it is **not a verified live deployment**. Automatic approval review rejected the source synchronization because the trusted instructions did not explicitly authorize exporting the source payload to that specific destination or public deployment. No source upload, saved version, access expansion or deployment occurred. The user was asked to approve that precise upload and public release. The existing private project must be reused after approval; do not create another Site. M5 is not Done until publication succeeds.
+
+The release candidate was cloned to an isolated temporary checkout, excluding the user's uncommitted `.gitignore` and M0-status edits. Those edits remain unchanged in the original worktree.
