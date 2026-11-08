@@ -89,3 +89,27 @@ Decisions: trusted project-owned formula strings rendered with KaTeX's `trust: f
 Verification: 61/61 tests passed; lint/build clean. Browser rendered all formulas without KaTeX errors, verified coefficient counts and MathML, and confirmed triangle has no Gibbs plot. N=9 RMSE / sampled maximum: square 0.200978 / 0.990235; sawtooth 0.145978 / 0.990723; triangle 0.007327 / 0.039423. Review/test correction normalized −0 to 0 in jump metadata for local windows. Production chunks remain below Vite warning thresholds.
 
 Next: production integration, accessibility/responsiveness, performance, documentation/screenshots and deployment (M5).
+
+## M5 — Polish and Release
+
+Status: implementation and local verification complete; deployment pending.
+
+| Task | Objective / scope | Dependencies | Acceptance and verification | Status |
+| --- | --- | --- | --- | --- |
+| M5-01 | Complete workflow integration | M4 | Production-browser matrix of all signals at N=1, 9, 50; tabs, reset, visibility, coefficients and Gibbs verified | Done |
+| M5-02 | UI feedback, loading, empty and error states | M5-01 | Lazy-content status, no-visible-curves state, error boundary, sticky controls and metadata | Done |
+| M5-03 | Accessibility | M5-02 | Keyboard tabs, dialog focus wrapping/Escape/restoration, unique labels/IDs, line styles, contrast and reduced motion | Done |
+| M5-04 | Responsive layouts | M5-02 | Chromium emulation at 320, 390, 1024 and 1440 CSS px; no document overflow | Done |
+| M5-05 | Maximum-setting performance | M5-01 | Production updates alternate N=49/50 for each signal; measurements below | Done |
+| M5-06 | Installation, features, screenshots and limitations | M5-01–05 | README matches implementation; desktop/mobile screenshots captured from production preview | Done |
+| M5-07 | Static publication | M5-01–06 | Assigned Sites project recorded; source synchronization and verified public deployment still required | In progress |
+
+Files: `README.md`, `docs/screenshots/*.webp`, `docs/execution-log.md`, `.openai/hosting.json`, `index.html`, `public/favicon.svg`, `package.json`/lockfile (0.1.0), `tsconfig.test.json`, `src/components/ui/{Drawer,ErrorBoundary}.tsx`, `src/app/App.*`, chart and workspace styles, `src/core/signals/signals.ts`, `tests/fourier.test.ts`. No additional dependencies.
+
+Review corrections: 320 px header overflow; explicit Tab/Shift+Tab wrapping in native modal drawers; touch input preserves native horizontal plot scrolling; duplicate/dead placeholder styles removed. Near-jump review also found that dividing a subnormal coordinate by π can underflow to zero; exact-multiple detection now checks multiplication back to the original coordinate, with regression assertions for ±Number.MIN_VALUE.
+
+Production QA: all 9 signal/N combinations passed; reset and visibility combinations, inspector collapse, all tab transitions, coefficient counts, formula validity and conditional Gibbs plots passed. ArrowRight activated/focused the next tab. Tab wrapped from the final Inspector control to Close; Escape closed and restored focus. Emulated reduced-motion preference was active. No browser console errors or warnings were reported. Contrast on the surface: primary text 15.11:1, secondary text 7.51:1, cyan 10.34:1. This is targeted verification, not a full accessibility certification.
+
+Performance: production-browser updates alternating N=49/50, 12 iterations per signal, measured from input dispatch through two animation frames. Median / maximum: square 48 / 60 ms, sawtooth 50 / 50 ms, triangle 34 / 50 ms. These are local end-to-end observations, not cross-device guarantees. SVG remains adequate for the supported workload. Formula code is lazy-loaded separately from the initial experiment.
+
+Release limitations: browser checks use Chromium and emulated devices; physical mobile devices, Firefox/Safari and real screen readers were not separately tested. Configuration is in memory. Graph zoom magnifies fixed samples and does not resample; local Gibbs uses its own dense sampling. Future modules are not implemented.

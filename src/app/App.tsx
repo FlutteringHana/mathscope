@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Navigation } from './navigation/Navigation'
 import { Drawer } from '../components/ui/Drawer'
+import { ErrorBoundary } from '../components/ui/ErrorBoundary'
 import { Inspector } from '../experiments/fourier/components/Inspector'
 import { Workspace } from '../experiments/fourier/components/Workspace'
 import { defaultConfig } from '../experiments/fourier/state/config'
@@ -22,7 +23,7 @@ export default function App() {
     </header>
     <div className={`${styles.layout} ${!inspectorVisible ? styles.collapsed : ''}`}>
       <aside className={styles.sidebar}><Navigation /></aside>
-      <main id="workspace" className={styles.workspace}><Workspace config={config} /></main>
+      <main id="workspace" className={styles.workspace}><ErrorBoundary><Workspace config={config} /></ErrorBoundary></main>
       {inspectorVisible && <aside className={styles.inspector} aria-label="Inspector"><Inspector config={config} onChange={setConfig} /></aside>}
     </div>
     {drawer && <Drawer title={drawer === 'navigation' ? 'Library' : 'Inspector'} onClose={() => setDrawer(null)}>

@@ -1,14 +1,14 @@
 {
   "name": "mathscope",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint --deny-warnings",
     "preview": "vite preview",
-    "test": "vitest run",
+    "test": "tsc -p tsconfig.test.json --noEmit && vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {

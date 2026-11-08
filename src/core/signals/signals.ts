@@ -16,7 +16,7 @@ function evaluate(id: SignalId, x: number): number {
   const t = principalCoordinate(x)
   // Exact representable multiples use the declared midpoint convention, including repeated periods.
   const multiple = x / Math.PI
-  const atMultiple = Number.isInteger(multiple)
+  const atMultiple = Number.isInteger(multiple) && x === multiple * Math.PI
   if (id === 'square') return atMultiple || t === 0 || Math.abs(t) === Math.PI ? 0 : t < 0 ? -1 : 1
   if (id === 'sawtooth') return atMultiple && Math.abs(multiple % 2) === 1 || Math.abs(t) === Math.PI ? 0 : t / Math.PI
   return 1 - 2 * Math.abs(t) / Math.PI

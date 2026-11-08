@@ -6,7 +6,7 @@
 .actions { display: flex; gap: .25rem; }
 .actions button { padding: .25rem .6rem; min-height: 32px; font-size: .7rem; }
 .scroll { overflow-x: auto; margin: var(--space-3); }
-.plot { display: block; width: 100%; min-width: 520px; touch-action: pan-y; user-select: none; }
+.plot { display: block; width: 100%; min-width: 520px; touch-action: auto; user-select: none; }
 .plot text { fill: var(--muted); font: 12px var(--font-mono); }
 .grid { stroke: var(--border); stroke-width: .65; }
 .axis { stroke: #526172; stroke-width: 1; }

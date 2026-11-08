@@ -67,6 +67,8 @@ describe('analytical conventions', () => {
     }
     expect(square.evaluate(Number.EPSILON)).toBe(1)
     expect(square.evaluate(-Number.EPSILON)).toBe(-1)
+    expect(square.evaluate(Number.MIN_VALUE)).toBe(1)
+    expect(square.evaluate(-Number.MIN_VALUE)).toBe(-1)
     expect(saw.evaluate(Math.PI - 1e-10)).toBeGreaterThan(.99)
     expect(saw.evaluate(Math.PI + 1e-10)).toBeLessThan(-.99)
   })

@@ -49,7 +49,7 @@ export function LinePlot({ series, min, max, label, description }: {
     </div>
     {series.length === 0 ? <p className={styles.empty}>No curves visible. Enable a layer in the Inspector.</p> : <div className={styles.scroll} tabIndex={0} role="region" aria-label={`${label}; scroll horizontally on small screens`}>
       <svg className={styles.plot} viewBox={`0 0 ${width} ${height}`} role="img" aria-label={label}
-        onPointerDown={event => { if (event.button === 0) { drag.current = { x: event.clientX, ...view }; event.currentTarget.setPointerCapture(event.pointerId) } }}
+        onPointerDown={event => { if (event.button === 0 && event.pointerType !== 'touch') { drag.current = { x: event.clientX, ...view }; event.currentTarget.setPointerCapture(event.pointerId) } }}
         onPointerMove={move} onPointerUp={() => { drag.current = null }} onPointerCancel={() => { drag.current = null }}>
         <title>{label}</title><desc>{description}</desc>
         <defs><clipPath id={clipId}><rect x={left} y={top} width={plotWidth} height={plotHeight} /></clipPath></defs>
