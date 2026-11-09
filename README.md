@@ -66,7 +66,15 @@ See [architecture](docs/architecture.md), [renderer evaluation](docs/renderer-de
 
 ## Release and deployment
 
-`npm run build` produces static assets in `dist/`. Any static host serving the root URL can host these assets. No server-side runtime is required. For a subdirectory deployment, configure Vite's base path and the favicon URL before building; the current release targets an origin root.
+`npm run build` produces static assets in `dist/`. No server-side runtime is required. Vite's base path is `/mathscope/`, including the favicon and generated asset URLs. Use that path when opening the local dev or preview server. For hosting at an origin root instead, build with `npm run build -- --base=/`.
+
+### GitHub Pages
+
+In repository **Settings → Pages → Build and deployment**, select **GitHub Actions** as the source. GitHub Free requires a public repository for Pages; eligible paid plans also support private repositories. The website will be publicly accessible.
+
+The workflow in `.github/workflows/deploy-pages.yml` runs tests, lint and the production build on pushes to `main`, then deploys `dist/` to GitHub Pages. It can also be started manually from the Actions tab. Authentication uses GitHub's built-in token; no personal access token or additional repository secrets are needed.
+
+After the deployment succeeds, the expected URL is `https://flutteringhana.github.io/mathscope/`. Check the workflow's deployment result before treating the site as live. Publishing the cloud development environment is separate from deploying this website.
 
 The Sites manifest at `.openai/hosting.json` records the assigned project and `dist` output directory. Publishing requires synchronizing an exact source commit, packaging its build output, saving that version, and verifying deployment status. Do not treat the expected Site URL or a successful local preview as proof of deployment. See the execution log for the actual release result.
 
